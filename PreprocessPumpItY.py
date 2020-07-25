@@ -1,0 +1,18 @@
+import pandas as pd
+import numpy as np
+
+train_label = pd.read_csv("Y_train.csv")
+
+column_labels = list(train_label.columns.values)
+column_labels.remove("id")
+status_group = ["functional", "non functional", "functional needs repair"]
+
+for i in column_labels:
+	unique_value = train_label[i].unique()
+	size = len(unique_value)
+	print(size)
+	for j in range(size):
+		if unique_value[j] != "nan":
+			train_label.loc[train_label[i] == unique_value[j], i] = j
+
+train_label.to_csv("train_label470.csv", index = False)
